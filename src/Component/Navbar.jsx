@@ -13,7 +13,7 @@ export default function Navbar() {
         <Link to="/add-story">Add Story</Link>
       </li>
       <li className="text-sm font-semibold">
-        <Link to="/add-path">Add Path</Link>
+        <Link to="/path">Path</Link>
       </li>
       <li className="text-sm font-semibold">
         <Link to="/all-story">All Story</Link>

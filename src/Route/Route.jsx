@@ -2,8 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import AddPath from "../Component/AddPath";
 import AddStory from "../Component/AddStory";
 import AllStory from "../Component/AllStory";
+import EditPath from "../Component/EditPath";
 import Home from "../Component/Home";
 import MyStory from "../Component/MyStory";
+import Path from "../Component/Path";
 import StroyDetails from "../Component/StroyDetails";
 import UpdateStory from "../Component/UpdateStory";
 import Layout from "../Layout/Layout";
@@ -45,6 +47,14 @@ export const router = createBrowserRouter([
       {
         path: "/update-story/:id",
         element: <UpdateStory />,
+      },
+      {
+        path: "/edit-path/:id",
+        element: <EditPath />,
+      },
+      {
+        path: "/path",
+        element: <Path />,
       },
 
       {

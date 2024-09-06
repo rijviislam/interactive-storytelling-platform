@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 export default function AllStory() {
+  const { user } = useAuth();
   const {
     data: allStory = [],
     isLoading,
@@ -37,7 +39,7 @@ export default function AllStory() {
               <div className="card-body">
                 <h2 className="card-title">{item.title}</h2>
                 <p>{item.category}</p>
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-between">
                   {/* DETAILS  */}
                   <Link
                     to={`/story-details/${item._id}`}
@@ -45,6 +47,14 @@ export default function AllStory() {
                   >
                     View Details
                   </Link>
+                  {user?.email === item.email ? (
+                    <Link
+                      to={`/update-story/${item._id}`}
+                      className="btn btn-primary"
+                    >
+                      Edit Story
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>

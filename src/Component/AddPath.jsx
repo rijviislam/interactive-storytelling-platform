@@ -1,14 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import { v4 as uuidv4 } from "uuid";
 import useAuth from "../Hooks/useAuth";
 
 export default function AddPath() {
   const { user, loader } = useAuth();
   const email = user?.email;
   const navigate = useNavigate();
-  const [category, setCategory] = useState([]);
-
+  const [selectedOptionsPath, setSelectedOptionsPath] = useState([]);
   const {
     register,
     handleSubmit,
@@ -16,12 +19,13 @@ export default function AddPath() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { title, category, initialContent, email } = data;
+    const { title, initialContent, email } = data;
+    const extractedObjects = selectedOptionsPath.map((item) => item.object);
     const postedTime = new Date();
     const postData = {
       postedTime,
       title,
-      category,
+      options: extractedObjects,
       initialContent,
       email,
     };
@@ -38,11 +42,34 @@ export default function AddPath() {
         if (data.insertedId) {
           console.log("post");
           reset();
-          navigate("/");
+          navigate("/path");
         }
       });
     console.log(postData);
   };
+
+  const { data: allPath = [] } = useQuery({
+    queryKey: ["allPath"],
+    queryFn: async () => {
+      const result = await axios.get("http://localhost:5001/get-path");
+      return result.data;
+    },
+  });
+
+  const handleSelect = (selectOption) => {
+    const updatedOptions = selectOption.map((item) => ({
+      ...item,
+      object: { ...item.object, parentId: uuidv4() },
+    }));
+    setSelectedOptionsPath(updatedOptions);
+  };
+  const pathOptions = allPath.map((path) => ({
+    value: path.title,
+    label: path.title,
+    object: path,
+  }));
+  // console.log(pathOptions);
+  console.log(selectedOptionsPath);
   if (loader) {
     return <h2>Loading</h2>;
   }
@@ -101,27 +128,13 @@ export default function AddPath() {
                   <span className="text-red-500">This field is required</span>
                 )}
               </div>
-              <div className="flex flex-col ">
-                <h2 className="text-sm text-white">Category</h2>
-                <select
-                  id="category"
-                  defaultValue="Category"
-                  name="category"
-                  className="bg-white p-2 h-[50px] outline-none rounded-md text-gray-500 border-2 mt-2 border-silver"
-                  onChange={(e) => setCategory(e.target.value)}
-                  {...register("category", { required: true })}
-                >
-                  <option value="Travel">Travel</option>
-                  <option value="Health and Fitness">Health and Fitness</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Photography">Photography</option>
-                  <option value="Education and Learning">
-                    Education and Learning
-                  </option>
-                </select>
-              </div>
 
+              <Select
+                options={pathOptions}
+                value={selectedOptionsPath}
+                onChange={handleSelect}
+                isMulti={true}
+              />
               <div className="flex items-center gap-2">
                 <input
                   id="email"

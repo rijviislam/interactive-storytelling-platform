@@ -111,11 +111,9 @@ export default function UpdateStory() {
             </select>
           </div>
 
-          <input
-            type="submit"
-            placeholder="Update Product"
-            className="btn bg-cyan-900 w-full my-2"
-          />
+          <button className="block w-full p-3 text-center rounded-sm text-gray-900 dark:text-gray-50 bg-violet-400 dark:bg-violet-600">
+            Upadte Story
+          </button>
         </form>
       </div>
     </div>
