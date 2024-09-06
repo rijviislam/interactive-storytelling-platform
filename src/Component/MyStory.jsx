@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
 export default function MyStory() {
@@ -24,19 +25,35 @@ export default function MyStory() {
   return (
     <div>
       <h2 className="text-3xl">My Story</h2>
-      <div className="flex flex-col gap-5">
-        {myStory.length > 0 ? (
-          <ul>
-            {myStory.map((story, index) => (
-              <li key={index}>
-                <h3>{story.title}</h3>
-                <p>{story.content}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No stories found!</p>
-        )}
+      <div className="flex gap-5 justify-around flex-wrap mx-10 my-5">
+        {myStory?.map((item, idx) => {
+          return (
+            <div
+              key={idx}
+              className="card bg-base-100 w-96 shadow-xl border border-silver-500"
+            >
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Shoes"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{item.title}</h2>
+                <p>{item.category}</p>
+                <div className="card-actions justify-end">
+                  {/* DETAILS  */}
+                  <Link
+                    to={`/story-details/${item._id}`}
+                    className="btn btn-primary"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
