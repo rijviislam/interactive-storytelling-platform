@@ -6,7 +6,7 @@ import useAuth from "../Hooks/useAuth";
 
 export default function MyStory() {
   const { user } = useAuth();
-  const { email } = user;
+  const email = user?.email;
 
   const {
     data: myStory = [],
@@ -41,13 +41,19 @@ export default function MyStory() {
               <div className="card-body">
                 <h2 className="card-title">{item.title}</h2>
                 <p>{item.category}</p>
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-between">
                   {/* DETAILS  */}
                   <Link
                     to={`/story-details/${item._id}`}
                     className="btn btn-primary"
                   >
                     View Details
+                  </Link>
+                  <Link
+                    to={`/update-story/${item._id}`}
+                    className="btn btn-primary"
+                  >
+                    Edit Story
                   </Link>
                 </div>
               </div>

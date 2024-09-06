@@ -5,6 +5,7 @@ import AllStory from "../Component/AllStory";
 import Home from "../Component/Home";
 import MyStory from "../Component/MyStory";
 import StroyDetails from "../Component/StroyDetails";
+import UpdateStory from "../Component/UpdateStory";
 import Layout from "../Layout/Layout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-story",
         element: <MyStory />,
+      },
+      {
+        path: "/update-story/:id",
+        element: <UpdateStory />,
       },
 
       {
