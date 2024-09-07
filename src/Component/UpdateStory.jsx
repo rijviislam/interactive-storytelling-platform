@@ -56,19 +56,6 @@ export default function UpdateStory() {
                 {...register("title", { required: true })}
               />
             </div>
-            {/* <div className="form-control w-full lg:w-1/2">
-              <label className="label">
-                <span className="label-text text-black">Story Description</span>
-              </label>
-              <input
-                type="text"
-                name="shortdescription"
-                placeholder="Short Description"
-                className="input input-bordered"
-                  defaultValue={story.storyDescription}
-                //   {...register("shortdescription", { required: true })}
-              />
-            </div> */}
             <div className="lg:w-1/2 ">
               <div className="flex justify-between mb-2 ">
                 <label
@@ -89,28 +76,6 @@ export default function UpdateStory() {
               />
             </div>
           </div>
-
-          <div className="flex flex-col w-full">
-            <h2 className="text-sm text-black">Story Options</h2>
-            <select
-              id="fruits"
-              defaultValue="Select Subcategory"
-              name="category"
-              className="bg-white p-2 outline-none rounded-md text-gray-500"
-              // onChange={(e) => setSelectCategory(e.target.value)}
-              // {...register("category", { required: true })}
-            >
-              <option value="Travel">Travel</option>
-              <option value="Health and Fitness">Health and Fitness</option>
-              <option value="Finance">Finance</option>
-              <option value="Technology">Technology</option>
-              <option value="Photography">Photography</option>
-              <option value="Education and Learning">
-                Education and Learning
-              </option>
-            </select>
-          </div>
-
           <button className="block w-full p-3 text-center rounded-sm text-gray-900 dark:text-gray-50 bg-violet-400 dark:bg-violet-600">
             Upadte Story
           </button>

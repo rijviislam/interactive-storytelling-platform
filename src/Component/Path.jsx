@@ -11,7 +11,7 @@ export default function Path() {
       return result.data;
     },
   });
-
+  console.log(allPath);
   if (isError) return <h2>Error occer!</h2>;
   return (
     <div className="w-2/2 h-screen m-10">

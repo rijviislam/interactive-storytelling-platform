@@ -56,11 +56,25 @@ export default function AddPath() {
     },
   });
 
-  const handleSelect = (selectOption) => {
-    const updatedOptions = selectOption.map((item) => ({
-      ...item,
-      object: { ...item.object, parentId: uuidv4() },
-    }));
+  const handleSelect = (selectOptions) => {
+    // const updatedOptions = selectOption.map((item) => ({
+    //   ...item,
+    //   object: { ...item.object, parentId: uuidv4() },
+    // }));
+    // setSelectedOptionsPath(updatedOptions);
+    const currentTitles = selectOptions.map((option) => option.value);
+
+    const updatedOptions = selectOptions.map((item) => {
+      const updatedObject = { ...item.object };
+
+      if (currentTitles.includes(item.value)) {
+        updatedObject.parentId = updatedObject.parentId || uuidv4(); 
+      } else {
+        delete updatedObject.parentId; 
+      }
+      return { ...item, object: updatedObject };
+    });
+
     setSelectedOptionsPath(updatedOptions);
   };
   const pathOptions = allPath.map((path) => ({
