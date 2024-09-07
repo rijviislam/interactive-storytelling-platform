@@ -18,34 +18,66 @@ export default function AddPath() {
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    const { title, initialContent, email } = data;
-    const extractedObjects = selectedOptionsPath.map((item) => item.object);
-    const postedTime = new Date();
+
+  const onSubmit = async (data) => {
+    const { title, initialContent } = data;
+    const parentId = selectedOptionsPath.length > 0 ? uuidv4() : "";
+
+    const optionTitles = selectedOptionsPath.map((item) => item.value);
+
+    const checkResponse = await fetch(`http://localhost:5001/check-options`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ titles: optionTitles }),
+    });
+
+    const checkResult = await checkResponse.json();
+
+    if (!checkResult.success) {
+      console.error("Error checking options:", checkResult.message);
+      return;
+    }
+
+    if (checkResult.existingTitles.length > 0) {
+      console.error(
+        "Some options are already assigned to other paths:",
+        checkResult.existingTitles,
+        "Please chose another options"
+      );
+      return;
+    }
+
     const postData = {
-      postedTime,
       title,
-      options: extractedObjects,
       initialContent,
+      options: selectedOptionsPath.map((item) => ({
+        ...item.object,
+        parentId: parentId,
+      })),
+      postedTime: new Date(),
+      parentId,
       email,
     };
 
-    fetch(`http://localhost:5001/add-path`, {
+    const response = await fetch(`http://localhost:5001/add-path`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(postData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          console.log("post");
-          reset();
-          navigate("/path");
-        }
-      });
-    console.log(postData);
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      console.log("Path added successfully");
+      reset();
+      navigate("/path");
+    } else {
+      console.error("Error adding path:", result.message);
+    }
   };
 
   const { data: allPath = [] } = useQuery({
@@ -57,33 +89,16 @@ export default function AddPath() {
   });
 
   const handleSelect = (selectOptions) => {
-    // const updatedOptions = selectOption.map((item) => ({
-    //   ...item,
-    //   object: { ...item.object, parentId: uuidv4() },
-    // }));
-    // setSelectedOptionsPath(updatedOptions);
-    const currentTitles = selectOptions.map((option) => option.value);
-
-    const updatedOptions = selectOptions.map((item) => {
-      const updatedObject = { ...item.object };
-
-      if (currentTitles.includes(item.value)) {
-        updatedObject.parentId = updatedObject.parentId || uuidv4(); 
-      } else {
-        delete updatedObject.parentId; 
-      }
-      return { ...item, object: updatedObject };
-    });
-
-    setSelectedOptionsPath(updatedOptions);
+    setSelectedOptionsPath(selectOptions);
   };
+
   const pathOptions = allPath.map((path) => ({
+    id: path._id,
     value: path.title,
     label: path.title,
     object: path,
   }));
-  // console.log(pathOptions);
-  console.log(selectedOptionsPath);
+
   if (loader) {
     return <h2>Loading</h2>;
   }
