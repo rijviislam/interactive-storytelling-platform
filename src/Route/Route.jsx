@@ -6,7 +6,7 @@ import EditPath from "../Component/EditPath";
 import Home from "../Component/Home";
 import MyStory from "../Component/MyStory";
 import Path from "../Component/Path";
-import StroyDetails from "../Component/StroyDetails";
+import StoryDetails from "../Component/StroyDetails";
 import UpdateStory from "../Component/UpdateStory";
 import Layout from "../Layout/Layout";
 import Login from "../Pages/Login/Login";
@@ -32,9 +32,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "/story-details/:id",
-        element: <StroyDetails />,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5001/story-details/${params.id}`),
+        element: <StoryDetails />,
+        loader: async ({ params }) =>
+          await fetch(`http://localhost:5001/story-details/${params.id}`),
+      },
+
+      {
+        path: "/path/:id",
+        element: <StoryDetails />,
+        loader: async ({ params }) =>
+          await fetch(`http://localhost:5001/path/${params.id}`),
       },
       {
         path: "/all-story",

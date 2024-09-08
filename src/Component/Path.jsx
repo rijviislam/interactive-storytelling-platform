@@ -22,42 +22,11 @@ export default function Path() {
     },
   });
 
-  //   const handleDeletePath = (id) => {
-  //     fetch(`http://localhost:5001/path/${id}`)
-  //       .then((res) => res.json())
-  //       .then((path) => {
-  //         const matchingItems = myPath.filter(
-  //           (item) => item.parentId === path.parentId
-  //         );
-  //         const updateTheParentId = matchingItems.map((item) => {
-  //           if (item.parentId === path.parentId) {
-  //             return { ...item, parentId: "" };
-  //           }
-  //           return item;
-  //         });
-  //         fetch(`http://localhost:5001/path/${id}`, {
-  //           method: "DELETE",
-  //         })
-  //           .then((res) => res.json())
-  //           .then((data) => {
-  //             if (data.success) {
-  //               // Refetch paths to ensure UI is updated
-  //               console.log("DELETE");
-  //             } else {
-  //               console.error("Error deleting path:", data.message);
-  //             }
-  //           })
-  //           .catch((error) => console.error("Error:", error));
-  //       });
-  //   };
-
   const handleDeletePath = (id) => {
     fetch(`http://localhost:5001/path/${id}`)
       .then((res) => res.json())
       .then((path) => {
         const { parentId } = path;
-
-        // If the path has a parentId, update all matching items
         if (parentId) {
           const updatedItems = myPath.map((item) => {
             if (item.parentId === parentId) {
@@ -66,11 +35,9 @@ export default function Path() {
             return item;
           });
 
-          // Update the local state with the updated items
           setMyPath(updatedItems);
         }
 
-        // Proceed to delete the path
         return fetch(`http://localhost:5001/path/${id}`, {
           method: "DELETE",
         });
@@ -78,9 +45,7 @@ export default function Path() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          // Optionally, refetch data to ensure UI is updated
-          // Assuming you have a `refetch` function from react-query
-          refetch(); // Uncomment if using react-query or similar
+          refetch();
 
           console.log("Path deleted and UI updated");
         } else {

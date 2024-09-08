@@ -20,7 +20,7 @@ export default function AddStory() {
   const { data: allPath = [], isError } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get("http://localhost:5001/get-path");
+      const result = await axios.get("http://localhost:500/get-path");
       return result.data;
     },
   });
@@ -37,20 +37,19 @@ export default function AddStory() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { image, title, category, storyDescription, email } = data;
+    const { image, title, initialContent, email } = data;
     const postedTime = new Date();
     const extractedObjects = selectedOptions.map((item) => item.object);
     const postData = {
       postedTime,
       image,
       title,
-      category,
-      storyDescription,
+      initialContent,
       email,
       options: extractedObjects,
     };
 
-    fetch(`http://localhost:5001/add-story`, {
+    fetch(`http://localhost:500/add-story`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -130,21 +129,21 @@ export default function AddStory() {
               <div>
                 <div className="flex justify-between mb-2">
                   <label
-                    htmlFor="storyDescription"
+                    htmlFor="initialContent"
                     className="text-sm text-white"
                   >
-                    Story Description
+                    Initial Content
                   </label>
                 </div>
                 <textarea
-                  type="storyDescription"
-                  name="storyDescription"
-                  id="storyDescription"
-                  placeholder="short description"
+                  type="initialContent"
+                  name="initialContent"
+                  id="initialContent"
+                  placeholder="initial content"
                   className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
-                  {...register("storyDescription", { required: true })}
+                  {...register("initialContent", { required: true })}
                 />
-                {errors.storyDescription && (
+                {errors.initialContent && (
                   <span className="text-red-500">This field is required</span>
                 )}
               </div>
