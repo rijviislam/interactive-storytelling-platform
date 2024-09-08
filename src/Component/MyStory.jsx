@@ -26,7 +26,13 @@ export default function MyStory() {
   if (isError) return <h2>Error fetching data</h2>;
   return (
     <div>
-      <h2 className="text-3xl">My Story</h2>
+      <h2 className="text-2xl ml-14 font-bold text-purple-600">My Story</h2>
+
+      {myStory.length === 0 && (
+        <h2 className="flex items-center justify-center mt-5">
+          You can't create any story
+        </h2>
+      )}
       <div className="flex gap-5 justify-around flex-wrap mx-10 my-5">
         {myStory?.map((item, idx) => {
           return (
@@ -36,8 +42,9 @@ export default function MyStory() {
             >
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  src={item.image}
                   alt="Shoes"
+                  className="w-full h-[300px]"
                 />
               </figure>
               <div className="card-body">

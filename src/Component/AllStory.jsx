@@ -24,18 +24,24 @@ export default function AllStory() {
   if (isError) return <h2>Error occer!</h2>;
   return (
     <div>
-      <h2 className="text-2xl ml-14 font-bold">Popular Story</h2>
+      <h2 className="text-2xl ml-14 font-bold text-purple-600">All Story</h2>
+      {allStory.length === 0 && (
+        <h2 className="flex items-center justify-center mt-5">
+          No Story Available
+        </h2>
+      )}
       <div className="flex gap-5 justify-around flex-wrap mx-10 my-5">
         {allStory?.map((item, idx) => {
           return (
             <div
               key={idx}
-              className="card bg-base-100 w-96 shadow-xl border border-silver-500"
+              className="card  w-96 shadow-xl border border-silver-500"
             >
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  src={item.image}
                   alt="Shoes"
+                  className="w-full h-[300px]"
                 />
               </figure>
               <div className="card-body">

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -8,6 +8,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 export default function Register() {
   const { createUser, updateUserProfile, setReload } = useContext(AuthContext);
   const [regErr, setRegErr] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ export default function Register() {
         toast.success("Register Successfully!", {
           position: "top-center",
         });
+        navigate("/");
         updateUserProfile(fullName, image).then(() => {
           setReload(true);
           reset();

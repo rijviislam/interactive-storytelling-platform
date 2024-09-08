@@ -75,40 +75,48 @@ export default function EditPath() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="card shrink-0 w-full max-w-screen-md shadow-2xl bg-base-100">
+        <h2 className="text-2xl ml-14 font-bold text-purple-600 text-center mb-5">
+          Edit Path
+        </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="card-body shadow-xl border border-silver rounded-lg"
         >
-          <div className="flex flex-col lg:flex-row gap-5 w-full">
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label">
-                <span className="label-text">Title</span>
-              </label>
-              <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                className="input input-bordered"
-                defaultValue={singlePath.title}
-                {...register("title", { required: true })}
-              />
-            </div>
-
-            <div className="lg:w-1/2 ">
-              <div className="flex justify-between mb-2 ">
-                <label htmlFor="initialContent" className="text-sm text-white">
-                  Story Description
+          <div className="flex flex-col gap-5 w-full">
+            <div className="flex gap-3">
+              <div className="form-control w-full lg:w-1/2">
+                <label className="label">
+                  <span className="label-text">Title</span>
                 </label>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  className="input input-bordered"
+                  defaultValue={singlePath.title}
+                  {...register("title", { required: true })}
+                />
               </div>
-              <textarea
-                type="initialContent"
-                name="initialContent"
-                id="initialContent"
-                defaultValue={singlePath.initialContent}
-                placeholder="short description"
-                className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
-                {...register("initialContent", { required: true })}
-              />
+
+              <div className="lg:w-1/2 ">
+                <div className="flex justify-between mb-2 ">
+                  <label
+                    htmlFor="initialContent"
+                    className="text-sm text-white"
+                  >
+                    Story Description
+                  </label>
+                </div>
+                <textarea
+                  type="initialContent"
+                  name="initialContent"
+                  id="initialContent"
+                  defaultValue={singlePath.initialContent}
+                  placeholder="short description"
+                  className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
+                  {...register("initialContent", { required: true })}
+                />
+              </div>
             </div>
 
             <Select

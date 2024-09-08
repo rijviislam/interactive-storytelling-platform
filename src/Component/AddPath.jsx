@@ -115,9 +115,7 @@ export default function AddPath() {
     <div className="flex bg-base-100 items-center justify-center lg:w-full">
       <div className="flex flex-col items-center lg:w-10/12  p-6 rounded-md sm:p-10  text-gray-100 dark:text-gray-800 w-[360px]">
         <div className="mb-8 text-center w-full">
-          <h1 className="my-3 text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-400 bg-clip-text font-bold lg:text-4xl md:text-2xl  text-3xl">
-            Add Path
-          </h1>
+          <h1 className="my-3 text-purple-600 font-bold  text-3xl">Add Path</h1>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -126,24 +124,45 @@ export default function AddPath() {
           className="space-y-6 rounded-lg p-5 lg:p-10 shadow-2xl border-2 border-sliver lg:w-[800px]  md:w-[600px] w-[360px]"
         >
           <div className=" flex items-start gap-5">
-            <div className="w-full lg:gap-5 md:gap-3 gap-2 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label htmlFor="Item Name" className="text-sm text-white">
-                    Title
+            <div className="w-full flex flex-col">
+              <div className="flex gap-3">
+                <div className="w-1/2">
+                  <label
+                    htmlFor="image"
+                    className="block mb-2 text-sm text-white"
+                  >
+                    Image
                   </label>
+                  <input
+                    type="text"
+                    name="image"
+                    id="image"
+                    placeholder="use image URL"
+                    className="w-full h-[50px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none"
+                    {...register("image", { required: true })}
+                  />
+                  {errors.image && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
                 </div>
-                <input
-                  type="title"
-                  name="title"
-                  id="title"
-                  placeholder="Title"
-                  className="w-full h-[50px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none"
-                  {...register("title", { required: true })}
-                />
-                {errors.title && (
-                  <span className="text-red-500">This field is required</span>
-                )}
+                <div className="w-1/2">
+                  <div className="flex justify-between mb-2">
+                    <label htmlFor="Item Name" className="text-sm text-white">
+                      Title
+                    </label>
+                  </div>
+                  <input
+                    type="title"
+                    name="title"
+                    id="title"
+                    placeholder="Title"
+                    className="w-full h-[50px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none"
+                    {...register("title", { required: true })}
+                  />
+                  {errors.title && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
+                </div>
               </div>
               <div>
                 <div className="flex justify-between mb-2">

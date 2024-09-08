@@ -62,15 +62,18 @@ export default function Path() {
       .catch((error) => console.error("Error:", error));
   };
 
-  console.log(myPath);
-
   if (isError) return <h2>Error occer!</h2>;
 
   return (
-    <div className="w-2/2 h-screen m-10">
+    <div className="w-2/2 min-h-screen m-10">
       <Link to="/add-path" className="btn btn-primary">
         Add Path
       </Link>
+      {allPath.length === 0 && (
+        <h2 className="flex items-center justify-center mt-5">
+          No Path Available
+        </h2>
+      )}
       {isLoading ? (
         <h3>Loading...</h3>
       ) : (
@@ -79,16 +82,21 @@ export default function Path() {
             return (
               <div
                 key={idx}
-                className="flex justify-between w-1/2 border  py-1 px-5 border-gray-500"
+                className="flex justify-between w-1/2 border  py-1 px-5 border-gray-500 rounded-lg"
               >
                 <h2 className="text-xl ">{path.title}</h2>
                 <div className="flex ">
-                  <Link to={`/edit-path/${path._id}`} className="btn btn-info">
-                    Edit Path
-                  </Link>
+                  {email === path.email && (
+                    <Link
+                      to={`/edit-path/${path._id}`}
+                      className="btn-sm bg-purple-500 text-white flex items-center justify-center rounded-md"
+                    >
+                      Edit Path
+                    </Link>
+                  )}
                   <button
                     onClick={() => handleDeletePath(path._id)}
-                    className="ml-5 btn btn-warning"
+                    className="ml-5 btn-sm bg-red-800 rounded-md text-white"
                   >
                     Delete Path
                   </button>

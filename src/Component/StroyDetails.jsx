@@ -61,8 +61,8 @@ export default function StoryDetails() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full border-2 border-white">
-      <div className="border-2 border-red-600 w-2/3 h-screen">
+    <div className="flex items-center justify-center w-full h-full ">
+      <div className="my-5 w-2/3 h-screen shadow-2xl">
         <div className="flex justify-between m-5">
           <button
             className="btn text-white bg-indigo-600 btn-xs"
@@ -77,18 +77,18 @@ export default function StoryDetails() {
         <div className="flex items-center justify-center">
           <img src={image} alt="" className="w-[400px] h-[300px] rounded-2xl" />
         </div>
-        <div className="flex flex-col mx-10">
+        <div className="flex flex-col mx-10 mt-5">
           <h2 className="text-3xl text-white">{title}</h2>
-          <p className="text-white">{initialContent}</p>
-          <div className="flex flex-wrap gap-5">
+          <p className="text-white my-5">{initialContent}</p>
+          <div className="flex flex-wrap gap-5 mt-5">
             {options?.map((option, idx) => (
-              <span
+              <button
                 key={option._id}
-                className="cursor-pointer underline text-white"
+                className="cursor-pointer btn-sm bg-purple-700 rounded-md text-white"
                 onClick={() => handleOptionClick(option._id)}
               >
                 Option {idx + 1}: {option.title}
-              </span>
+              </button>
             ))}
           </div>
         </div>

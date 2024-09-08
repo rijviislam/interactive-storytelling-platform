@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [recentStory, setRecentStory] = useState([]);
   const {
     data: allStory = [],
     isLoading,
@@ -24,20 +23,39 @@ export default function Home() {
     return viewCountB - viewCountA;
   });
 
+  if (isLoading)
+    return <h2 className="flex items-center justify-center">Loading.....</h2>;
+  if (isError)
+    return (
+      <h2 className="flex items-center justify-center">Error fetching data</h2>
+    );
+
   return (
     <div>
-      <h2 className="text-2xl ml-14 font-bold">Popular Story</h2>
+      <h2 className="text-2xl ml-14 font-bold text-purple-500">
+        Popular Story
+      </h2>
+      {sortedStories.length === 0 && (
+        <h2 className="flex items-center justify-center mt-5">
+          No Story Available
+        </h2>
+      )}
       <div className="flex flex-wrap gap-5 items-center justify-center my-5">
         {sortedStories.slice(0, 6).map((story, idx) => {
           return (
-            <div key={idx} className="card  w-96 shadow-xl bg-white text-black">
+            <div
+              key={idx}
+              className="card border border-silver-500 w-96 shadow-xl "
+            >
               <figure>
-                <img src={story.image} />
+                <img src={story.image} className="w-full h-[300px]" />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">{story.title}</h2>
-                <p>{story.initialContent}</p>
-                <div className="card-actions justify-end">
+                <h2 className="card-title text-purple-600">{story.title}</h2>
+                <div className="card-actions justify-between items-end">
+                  <button className="btn cursor-none text-white btn-xs bg-indigo-600 border-none">
+                    Analytics {story.viewCount}
+                  </button>
                   <Link
                     to={`/story-details/${story._id}`}
                     className="btn btn-primary"

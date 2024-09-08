@@ -12,6 +12,7 @@ import UpdateStory from "../Component/UpdateStory";
 import Layout from "../Layout/Layout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +26,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-story",
-        element: <AddStory />,
+        element: (
+          <PrivateRoute>
+            <AddStory />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-path",
-        element: <AddPath />,
+        element: (
+          <PrivateRoute>
+            <AddPath />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/story-details/:id",
