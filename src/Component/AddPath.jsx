@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import useAuth from "../Hooks/useAuth";
-
 export default function AddPath() {
   const { user, loader } = useAuth();
   const email = user?.email;
@@ -41,6 +41,14 @@ export default function AddPath() {
     }
 
     if (checkResult.existingTitles.length > 0) {
+      toast.success(
+        "Some options are already assigned to other paths:",
+        checkResult.existingTitles,
+        "Please chose another options",
+        {
+          position: "top-center",
+        }
+      );
       console.error(
         "Some options are already assigned to other paths:",
         checkResult.existingTitles,
@@ -203,6 +211,7 @@ export default function AddPath() {
             Add Path
           </button>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );
