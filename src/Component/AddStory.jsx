@@ -20,9 +20,7 @@ export default function AddStory() {
   const { data: allPath = [], isError } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get(
-        "https://interactive-storytelling-platform-server.vercel.app/get-path"
-      );
+      const result = await axios.get("http://localhost:5001/get-path");
       return result.data;
     },
   });
@@ -53,16 +51,13 @@ export default function AddStory() {
       viewCount,
     };
 
-    fetch(
-      `https://interactive-storytelling-platform-server.vercel.app/add-story`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(postData),
-      }
-    )
+    fetch(`http://localhost:5001/add-story`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {

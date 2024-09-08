@@ -44,18 +44,14 @@ export const router = createBrowserRouter([
         path: "/story-details/:id",
         element: <StoryDetails />,
         loader: async ({ params }) =>
-          await fetch(
-            `https://interactive-storytelling-platform-server.vercel.app/story-details/${params.id}`
-          ),
+          await fetch(`http://localhost:5001/story-details/${params.id}`),
       },
 
       {
         path: "/path/:id",
         element: <StoryDetails />,
         loader: async ({ params }) =>
-          await fetch(
-            `https://interactive-storytelling-platform-server.vercel.app/path/${params.id}`
-          ),
+          await fetch(`http://localhost:5001/path/${params.id}`),
       },
       {
         path: "/all-story",

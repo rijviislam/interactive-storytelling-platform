@@ -11,9 +11,7 @@ export default function Home() {
   } = useQuery({
     queryKey: ["allStory"],
     queryFn: async () => {
-      const result = await axios(
-        "https://interactive-storytelling-platform-server.vercel.app/all-story"
-      );
+      const result = await axios("http://localhost:5001/all-story");
       return result.data;
     },
   });

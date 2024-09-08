@@ -16,18 +16,14 @@ export default function Path() {
   } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get(
-        "https://interactive-storytelling-platform-server.vercel.app/get-path"
-      );
+      const result = await axios.get("http://localhost:5001/get-path");
       setMyPath(result.data);
       return result.data;
     },
   });
 
   const handleDeletePath = (id) => {
-    fetch(
-      `https://interactive-storytelling-platform-server.vercel.app/path/${id}`
-    )
+    fetch(`http://localhost:5001/path/${id}`)
       .then((res) => res.json())
       .then((path) => {
         const { parentId } = path;
@@ -42,12 +38,9 @@ export default function Path() {
           setMyPath(updatedItems);
         }
 
-        return fetch(
-          `https://interactive-storytelling-platform-server.vercel.app/path/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
+        return fetch(`http://localhost:5001/path/${id}`, {
+          method: "DELETE",
+        });
       })
       .then((res) => res.json())
       .then((data) => {

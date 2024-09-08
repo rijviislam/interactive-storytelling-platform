@@ -13,9 +13,7 @@ export default function EditPath() {
   const { _id } = singlePath;
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(
-        `https://interactive-storytelling-platform-server.vercel.app/path/${id}`
-      );
+      const { data } = await axios.get(`http://localhost:5001/path/${id}`);
       setSinglePath(data);
       const defaultSelectedOptions = data.options.map((option) => ({
         value: option.title,
@@ -36,16 +34,13 @@ export default function EditPath() {
       initialContent,
       options: selectedOptions.map((option) => option.object),
     };
-    fetch(
-      `https://interactive-storytelling-platform-server.vercel.app/path/${_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
-      }
-    )
+    fetch(`http://localhost:5001/path/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -57,9 +52,7 @@ export default function EditPath() {
   const { data: allPath = [] } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get(
-        "https://interactive-storytelling-platform-server.vercel.app/get-path"
-      );
+      const result = await axios.get("http://localhost:5001/get-path");
       return result.data;
     },
   });
