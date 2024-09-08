@@ -20,7 +20,7 @@ export default function AddPath() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const { title, initialContent } = data;
+    const { title, initialContent, image } = data;
     const parentId = selectedOptionsPath.length > 0 ? uuidv4() : "";
 
     const optionTitles = selectedOptionsPath.map((item) => item.value);
@@ -55,6 +55,7 @@ export default function AddPath() {
     const postData = {
       title,
       initialContent,
+      image,
       options: selectedOptionsPath.map((item) => ({
         ...item.object,
         parentId: parentId,
@@ -64,6 +65,7 @@ export default function AddPath() {
       email,
       viewCount,
     };
+    console.log(postData);
 
     const response = await fetch(
       `https://interactive-storytelling-platform-server.vercel.app/add-path`,
@@ -97,6 +99,7 @@ export default function AddPath() {
     },
   });
 
+  console.log(allPath);
   const handleSelect = (selectOptions) => {
     setSelectedOptionsPath(selectOptions);
   };

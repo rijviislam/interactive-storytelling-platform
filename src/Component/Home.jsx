@@ -52,10 +52,7 @@ export default function Home() {
               </figure>
               <div className="card-body">
                 <h2 className="card-title text-purple-600">{story.title}</h2>
-                <div className="card-actions justify-between items-end">
-                  <button className="btn cursor-none text-white btn-xs bg-indigo-600 border-none">
-                    Analytics {story.viewCount}
-                  </button>
+                <div className="card-actions justify-end mt-5">
                   <Link
                     to={`/story-details/${story._id}`}
                     className="btn btn-primary"

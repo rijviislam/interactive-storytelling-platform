@@ -41,14 +41,15 @@ export default function UpdateStory() {
   };
   console.log(story);
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center flex-col justify-center h-screen">
+      <h1 className="my-3 text-purple-600 font-bold  text-3xl">Update Story</h1>
       <div className="card shrink-0 w-full max-w-screen-md shadow-2xl bg-base-100">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="card-body shadow-xl border border-silver rounded-lg"
         >
-          <div className="flex flex-col lg:flex-row gap-5 w-full">
-            <div className="form-control w-full lg:w-1/2">
+          <div className="flex flex-col  gap-5 w-full">
+            <div className="form-control w-full ">
               <label className="label">
                 <span className="label-text">Title</span>
               </label>
@@ -61,7 +62,7 @@ export default function UpdateStory() {
                 {...register("title")}
               />
             </div>
-            <div className="lg:w-1/2 ">
+            <div className="w-full">
               <div className="flex justify-between mb-2 ">
                 <label
                   htmlFor="storyDescription"

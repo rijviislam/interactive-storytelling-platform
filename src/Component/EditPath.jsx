@@ -83,8 +83,8 @@ export default function EditPath() {
           className="card-body shadow-xl border border-silver rounded-lg"
         >
           <div className="flex flex-col gap-5 w-full">
-            <div className="flex gap-3">
-              <div className="form-control w-full lg:w-1/2">
+            <div className="flex gap-3 flex-col">
+              <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Title</span>
                 </label>
@@ -98,7 +98,7 @@ export default function EditPath() {
                 />
               </div>
 
-              <div className="lg:w-1/2 ">
+              <div className="w-full ">
                 <div className="flex justify-between mb-2 ">
                   <label
                     htmlFor="initialContent"
