@@ -15,7 +15,9 @@ export default function MyStory() {
   } = useQuery({
     queryKey: ["myStory", email],
     queryFn: async () => {
-      const result = await axios.get(`http://localhost:5001/my-story/${email}`);
+      const result = await axios.get(
+        `https://interactive-storytelling-platform-server.vercel.app/my-story/${email}`
+      );
       return result.data;
     },
   });

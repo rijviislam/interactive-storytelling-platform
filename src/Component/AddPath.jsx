@@ -25,13 +25,16 @@ export default function AddPath() {
 
     const optionTitles = selectedOptionsPath.map((item) => item.value);
 
-    const checkResponse = await fetch(`http://localhost:5001/check-options`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ titles: optionTitles }),
-    });
+    const checkResponse = await fetch(
+      `https://interactive-storytelling-platform-server.vercel.app/check-options`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ titles: optionTitles }),
+      }
+    );
 
     const checkResult = await checkResponse.json();
 
@@ -62,13 +65,16 @@ export default function AddPath() {
       viewCount,
     };
 
-    const response = await fetch(`http://localhost:5001/add-path`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    });
+    const response = await fetch(
+      `https://interactive-storytelling-platform-server.vercel.app/add-path`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      }
+    );
 
     const result = await response.json();
 
@@ -84,7 +90,9 @@ export default function AddPath() {
   const { data: allPath = [] } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get("http://localhost:5001/get-path");
+      const result = await axios.get(
+        "https://interactive-storytelling-platform-server.vercel.app/get-path"
+      );
       return result.data;
     },
   });

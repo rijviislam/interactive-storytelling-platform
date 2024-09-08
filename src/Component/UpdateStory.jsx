@@ -11,7 +11,9 @@ export default function UpdateStory() {
   const { _id } = story;
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`http://localhost:5001/all-story/${id}`);
+      const { data } = await axios.get(
+        `https://interactive-storytelling-platform-server.vercel.app/all-story/${id}`
+      );
       setStory(data);
     };
     getData();
@@ -19,13 +21,16 @@ export default function UpdateStory() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     const { title, storyDescription } = data;
-    fetch(`http://localhost:5001/all-story/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://interactive-storytelling-platform-server.vercel.app/all-story/${_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

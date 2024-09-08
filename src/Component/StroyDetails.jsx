@@ -17,7 +17,7 @@ export default function StoryDetails() {
       const updateViewCount = async () => {
         try {
           const response = await fetch(
-            `http://localhost:5001/story-viewcount/${id}`,
+            `https://interactive-storytelling-platform-server.vercel.app/story-viewcount/${id}`,
             { method: "PATCH" }
           );
           if (!response.ok) {
@@ -44,7 +44,7 @@ export default function StoryDetails() {
     const updateOptionViewCount = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5001/option-viewcount/${optionId}`,
+          `https://interactive-storytelling-platform-server.vercel.app/option-viewcount/${optionId}`,
           { method: "PATCH" }
         );
         if (!response.ok) {
