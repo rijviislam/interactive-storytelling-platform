@@ -87,12 +87,14 @@ export default function Path() {
                       Edit Path
                     </Link>
                   )}
-                  <button
-                    onClick={() => handleDeletePath(path._id)}
-                    className="ml-5 btn-sm bg-red-800 rounded-md text-white"
-                  >
-                    Delete Path
-                  </button>
+                  {email === path.email && (
+                    <button
+                      onClick={() => handleDeletePath(path._id)}
+                      className="ml-5 btn-sm bg-red-800 rounded-md text-white"
+                    >
+                      Delete Path
+                    </button>
+                  )}
                 </div>
               </div>
             );
