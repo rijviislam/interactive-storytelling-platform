@@ -48,7 +48,7 @@ export default function AddPath() {
       );
       return;
     }
-
+    let viewCount = 0;
     const postData = {
       title,
       initialContent,
@@ -59,6 +59,7 @@ export default function AddPath() {
       postedTime: new Date(),
       parentId,
       email,
+      viewCount,
     };
 
     const response = await fetch(`http://localhost:5001/add-path`, {

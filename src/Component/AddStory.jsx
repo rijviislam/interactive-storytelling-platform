@@ -20,7 +20,7 @@ export default function AddStory() {
   const { data: allPath = [], isError } = useQuery({
     queryKey: ["allPath"],
     queryFn: async () => {
-      const result = await axios.get("http://localhost:500/get-path");
+      const result = await axios.get("http://localhost:5001/get-path");
       return result.data;
     },
   });
@@ -39,6 +39,7 @@ export default function AddStory() {
   const onSubmit = (data) => {
     const { image, title, initialContent, email } = data;
     const postedTime = new Date();
+    let viewCount = 0;
     const extractedObjects = selectedOptions.map((item) => item.object);
     const postData = {
       postedTime,
@@ -47,9 +48,10 @@ export default function AddStory() {
       initialContent,
       email,
       options: extractedObjects,
+      viewCount,
     };
 
-    fetch(`http://localhost:500/add-story`, {
+    fetch(`http://localhost:5001/add-story`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

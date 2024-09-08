@@ -55,6 +55,9 @@ export default function MyStory() {
                   >
                     Edit Story
                   </Link>
+                  <button className="btn text-white btn-xs bg-indigo-800">
+                    Analytics
+                  </button>
                 </div>
               </div>
             </div>
