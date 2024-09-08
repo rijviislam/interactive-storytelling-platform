@@ -6,12 +6,10 @@ export default function StoryDetails() {
   const navigate = useNavigate();
   const data = useLoaderData();
   const pathData = useLoaderData();
-  console.log(data, id);
-  console.log("data", data);
-  const { image, title, initialContent, options, viewCount } = data || {};
-  const { _id } = pathData || {};
   const timeoutRef = useRef(null);
 
+  const { image, title, initialContent, options, viewCount } = data || {};
+  const { _id } = pathData || {};
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -22,7 +20,6 @@ export default function StoryDetails() {
             `http://localhost:5001/story-viewcount/${id}`,
             { method: "PATCH" }
           );
-          console.log("Response:", response);
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -32,6 +29,7 @@ export default function StoryDetails() {
           console.error("Failed to update view count", error);
         }
       };
+
       updateViewCount();
     }, 500);
 
@@ -42,8 +40,26 @@ export default function StoryDetails() {
 
   const handleOptionClick = (optionId) => {
     navigate(`/path/${optionId}`);
+
+    const updateOptionViewCount = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5001/option-viewcount/${optionId}`,
+          { method: "PATCH" }
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const updatedOption = await response.json();
+        console.log("Updated Option:", updatedOption);
+      } catch (error) {
+        console.error("Failed to update option view count", error);
+      }
+    };
+
+    updateOptionViewCount();
   };
-  console.log(pathData);
+
   return (
     <div className="flex items-center justify-center w-full h-full border-2 border-white">
       <div className="border-2 border-red-600 w-2/3 h-screen">

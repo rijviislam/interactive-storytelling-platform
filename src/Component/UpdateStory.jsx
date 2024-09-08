@@ -53,7 +53,7 @@ export default function UpdateStory() {
                 placeholder="Title"
                 className="input input-bordered"
                 defaultValue={story.title}
-                {...register("title", { required: true })}
+                {...register("title")}
               />
             </div>
             <div className="lg:w-1/2 ">
@@ -72,7 +72,7 @@ export default function UpdateStory() {
                 defaultValue={story.storyDescription}
                 placeholder="short description"
                 className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
-                {...register("storyDescription", { required: true })}
+                {...register("storyDescription")}
               />
             </div>
           </div>

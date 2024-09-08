@@ -3,6 +3,7 @@ import AddPath from "../Component/AddPath";
 import AddStory from "../Component/AddStory";
 import AllStory from "../Component/AllStory";
 import EditPath from "../Component/EditPath";
+import ErrorPage from "../Component/ErrorPage";
 import Home from "../Component/Home";
 import MyStory from "../Component/MyStory";
 import Path from "../Component/Path";
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
