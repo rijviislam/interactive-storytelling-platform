@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
 export default function StoryDetails() {
@@ -10,6 +10,35 @@ export default function StoryDetails() {
   console.log("data", data);
   const { image, title, initialContent, options, viewCount } = data || {};
   const { _id } = pathData || {};
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      const updateViewCount = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:5001/story-viewcount/${id}`,
+            { method: "PATCH" }
+          );
+          console.log("Response:", response);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const updatedStory = await response.json();
+          console.log("Updated Story:", updatedStory);
+        } catch (error) {
+          console.error("Failed to update view count", error);
+        }
+      };
+      updateViewCount();
+    }, 500);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [id]);
 
   const handleOptionClick = (optionId) => {
     navigate(`/path/${optionId}`);

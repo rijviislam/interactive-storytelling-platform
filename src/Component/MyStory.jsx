@@ -56,7 +56,7 @@ export default function MyStory() {
                     Edit Story
                   </Link>
                   <button className="btn text-white btn-xs bg-indigo-800">
-                    Analytics
+                    Analytics {item.viewCount}
                   </button>
                 </div>
               </div>
